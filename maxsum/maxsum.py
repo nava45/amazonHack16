@@ -36,7 +36,16 @@ def get_input():
 def find_max_sum(input_list):
     if input_list:
         fst_max_index, fst_max_val = find_max(input_list)
-        sec_max_idx, sec_max_val = find_max(input_list[:fst_max_index-1] + input_list[fst_max_index+2:])
+        
+        # skipping the neighbors of first maximum
+        input_list[fst_max_index] = 0
+        input_list[fst_max_index-1] = 0
+        try:
+            input_list[fst_max_index+1] = 0
+        except IndexError:
+            pass
+
+        sec_max_idx, sec_max_val = find_max(input_list)
         
         if not sec_max_val:
             return [fst_max_val]
